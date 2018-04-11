@@ -12,15 +12,18 @@ class Extractor:
     Keep a clean copy on hand, but we will be modifying this for different attributes as we progress.
     """
 
+    # todo: stub
     def __init__(self, text, output):
         self.output = output
 
     def parse(self):
         pass
 
+    # todo: stub
     def extract(self):
         pass
 
+    # todo: stub
     def write(self):
 
         out = self.output
@@ -33,6 +36,9 @@ class Extractor:
 
 
 def run():
+    """
+    runs parameters from command line
+    """
     # get args
     text, output = sys.argv[1:]
 
@@ -41,13 +47,16 @@ def run():
     print("Complete. Results written to " + "'" + output + "'")
 
 
-# this is used to run a data set with 2=> k <=10 and get the average of 10 runs for each k
 def testing(text, output):
+    """
+    runs parameters defined in main method
+    """
     extractor = Extractor(text, output)
 
 
 if __name__ == "__main__":
     # check correct length args
+    # if no command line args, uses these parameters
     if len(sys.argv) == 1:
         testing("late_encounter.txt", "encounter_output.csv")
     elif len(sys.argv[1:]) == 2:
