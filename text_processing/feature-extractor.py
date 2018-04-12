@@ -1,5 +1,6 @@
 import sys
 import timeit
+import pandas as pd
 
 start = timeit.default_timer()
 
@@ -12,12 +13,21 @@ class Extractor:
     Keep a clean copy on hand, but we will be modifying this for different attributes as we progress.
     """
 
-    # todo: stub
     def __init__(self, text, output):
+        self.text = text
         self.output = output
 
+    # todo: stub
     def parse(self):
-        pass
+        # read into dataframe
+        text = pd.read_csv(self.text, header=None, delimiter=r".")
+
+        nump_arr = text.as_matrix()
+
+        for each in nump_arr:
+            print(each)
+    # we need to account for abbreviations, since we are using . as a delimiter
+
 
     # todo: stub
     def extract(self):
@@ -52,6 +62,7 @@ def testing(text, output):
     runs parameters defined in main method
     """
     extractor = Extractor(text, output)
+    extractor.parse()
 
 
 if __name__ == "__main__":
