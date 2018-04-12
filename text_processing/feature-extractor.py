@@ -17,6 +17,9 @@ class Extractor:
         self.text = text
         self.output = output
 
+        self.sanitized_text = []
+        self.output_array = []
+
     # todo: stub
     def parse(self):
         # read into dataframe
