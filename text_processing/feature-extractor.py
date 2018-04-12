@@ -1,6 +1,5 @@
 import sys
 import timeit
-
 import pandas as pd
 
 start = timeit.default_timer()
@@ -21,7 +20,6 @@ class Extractor:
         self.sanitized_text = []
         self.output_array = []
 
-
     # todo: stub
     def parse(self):
 
@@ -36,13 +34,12 @@ class Extractor:
         print(self.sanitized_text)
 
         # read into dataframe
+        text = pd.read_csv(self.text, header=None, delimiter=r".")
 
-        # text = pd.read_csv(self.text, header=None, delimiter=r".")
+        nump_arr = text.as_matrix()
 
-        # nump_arr = text.as_matrix()
-
-        # for each in nump_arr:
-        #     print(each)
+        for each in nump_arr:
+            print(each)
     # we need to account for abbreviations, since we are using . as a delimiter
 
 
