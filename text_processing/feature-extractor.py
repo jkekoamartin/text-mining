@@ -22,6 +22,17 @@ class Extractor:
 
     # todo: stub
     def parse(self):
+
+        sentence_list = None
+
+        with open('late_encounter.txt', "r") as input_file:
+            for line in input_file:
+               sentence_list = line.split(". ")
+        # for s in sentence_list:
+        self.sanitized_text = sentence_list
+
+        print(self.sanitized_text)
+
         # read into dataframe
         text = pd.read_csv(self.text, header=None, delimiter=r".")
 
