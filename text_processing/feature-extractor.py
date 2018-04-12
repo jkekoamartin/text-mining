@@ -1,5 +1,6 @@
 import sys
 import timeit
+
 import pandas as pd
 
 start = timeit.default_timer()
@@ -17,15 +18,31 @@ class Extractor:
         self.text = text
         self.output = output
 
+        self.sanitized_text = []
+        self.output_array = []
+
+
     # todo: stub
     def parse(self):
+
+        sentence_list = None
+
+        with open('late_encounter.txt', "r") as input_file:
+            for line in input_file:
+               sentence_list = line.split(". ")
+        # for s in sentence_list:
+        self.sanitized_text = sentence_list
+
+        print(self.sanitized_text)
+
         # read into dataframe
-        text = pd.read_csv(self.text, header=None, delimiter=r".")
 
-        nump_arr = text.as_matrix()
+        # text = pd.read_csv(self.text, header=None, delimiter=r".")
 
-        for each in nump_arr:
-            print(each)
+        # nump_arr = text.as_matrix()
+
+        # for each in nump_arr:
+        #     print(each)
     # we need to account for abbreviations, since we are using . as a delimiter
 
 
