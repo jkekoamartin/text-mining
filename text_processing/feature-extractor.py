@@ -34,7 +34,22 @@ class Extractor:
 
     # todo: stub
     def extract(self):
-        pass
+
+        for sentence in self.sanitized_text:
+            sentence_length_char = self.get_sentence_length_char(sentence)
+            sentence_length_words = self.get_sentence_length_word(sentence)
+            sentence_word_length = self.get_sentence_average_word_len(sentence)
+
+    def get_sentence_length_char(sentence):
+        return len(sentence) - sentence.count(' ')
+
+
+    def get_sentence_length_word(sentence):
+        return len(sentence.split())
+
+    def get_sentence_average_word_len(sentence):
+        words = sentence.split()
+        return sum(len(word) for word in words) / len(words)
 
     # todo: stub
     def write(self):
