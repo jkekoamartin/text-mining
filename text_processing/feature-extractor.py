@@ -29,28 +29,24 @@ class Extractor:
 
         for each in nump_arr:
             print(each)
-    # we need to account for abbreviations, since we are using . as a delimiter
 
+    # we need to account for abbreviations, since we are using . as a delimiter
 
     # todo: stub
     def extract(self):
 
         for sentence in self.sanitized_text:
-            temp = []
-            temp.append(self.get_sentence_length_char(sentence))
-            temp.append(self.get_sentence_length_word(sentence))
-            temp.append(self.get_sentence_average_word_len(sentence))
+            temp = [self.get_sentence_length_char(sentence), self.get_sentence_length_word(sentence),
+                    self.get_sentence_average_word_len(sentence)]
             self.output_array.append(temp)
 
-
-    def get_sentence_length_char(sentence):
+    def get_sentence_length_char(self, sentence):
         return len(sentence) - sentence.count(' ')
 
-
-    def get_sentence_length_word(sentence):
+    def get_sentence_length_word(self, sentence):
         return len(sentence.split())
 
-    def get_sentence_average_word_len(sentence):
+    def get_sentence_average_word_len(self, sentence):
         words = sentence.split()
         return sum(len(word) for word in words) / len(words)
 
