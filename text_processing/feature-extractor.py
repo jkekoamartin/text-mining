@@ -1,3 +1,4 @@
+import csv
 import sys
 import timeit
 import re
@@ -52,13 +53,26 @@ class Extractor:
     # todo: stub
     def write(self):
 
-        out = self.output
+        with open(self.output, 'w', newline='') as csvfile:
+            fieldnames = ['sentence_length_char', 'sentence_length_word', 'average_word_length']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-        out = open(out, 'w')
+            writer.writeheader()
 
-        # write sse
-        out.write("\n")
-        out.close()
+            for line in self.output_array:
+                writer.writerow({'sentence_length_char': line[0],
+                                 'sentence_length_word': line[1],
+                                 'average_word_length': line[2]})
+
+        # out = self.output
+        #
+        # out = open(out, 'w')
+        #
+        # # write sse
+        # for line in self.output_array:
+        #     out.write(str(line) + "\n")
+        #
+        # out.close()
 
 
 # non class helper methods
@@ -83,6 +97,9 @@ def run():
     text, output = sys.argv[1:]
 
     extractor = Extractor(text, output)
+    extractor.parse()
+    extractor.extract()
+    extractor.write()
 
     print("Complete. Results written to " + "'" + output + "'")
 
@@ -94,6 +111,7 @@ def testing(text, output):
     extractor = Extractor(text, output)
     extractor.parse()
     extractor.extract()
+    extractor.write()
 
 
 if __name__ == "__main__":
