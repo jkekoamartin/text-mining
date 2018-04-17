@@ -1,5 +1,6 @@
 import sys
 import timeit
+import re
 import pandas as pd
 
 start = timeit.default_timer()
@@ -23,43 +24,30 @@ class Extractor:
     # todo: stub
     def parse(self):
 
-        sentence_list = None
+        with open(self.text, encoding="utf8") as f:
+            content = f.readlines()
+        content = [x.strip() for x in content]
 
-        with open('late_encounter.txt', "r") as input_file:
-            for line in input_file:
-               sentence_list = line.split(". ")
-        # for s in sentence_list:
-        self.sanitized_text = sentence_list
+        sanitized_text = []
 
-        print(self.sanitized_text)
+        for line in content:
+            # control special characters here
+            cleaned = re.sub("[“”‘’]", "", line)
+            sanitized_text.append(cleaned)
 
-        # read into dataframe
-        text = pd.read_csv(self.text, header=None, delimiter=r".")
-
-        nump_arr = text.as_matrix()
-
-        for each in nump_arr:
-            print(each)
-
-    # we need to account for abbreviations, since we are using . as a delimiter
+        self.sanitized_text = sanitized_text
 
     # todo: stub
     def extract(self):
 
         for sentence in self.sanitized_text:
-            temp = [self.get_sentence_length_char(sentence), self.get_sentence_length_word(sentence),
-                    self.get_sentence_average_word_len(sentence)]
+            temp = [get_sentence_length_char(sentence), get_sentence_length_word(sentence),
+                    get_sentence_average_word_len(sentence)]
             self.output_array.append(temp)
 
-    def get_sentence_length_char(self, sentence):
-        return len(sentence) - sentence.count(' ')
+        text = pd.DataFrame(self.output_array)
 
-    def get_sentence_length_word(self, sentence):
-        return len(sentence.split())
-
-    def get_sentence_average_word_len(self, sentence):
-        words = sentence.split()
-        return sum(len(word) for word in words) / len(words)
+        print(text)
 
     # todo: stub
     def write(self):
@@ -71,6 +59,20 @@ class Extractor:
         # write sse
         out.write("\n")
         out.close()
+
+
+# non class helper methods
+def get_sentence_length_char(sentence):
+    return len(sentence) - sentence.count(' ')
+
+
+def get_sentence_length_word(sentence):
+    return len(sentence.split())
+
+
+def get_sentence_average_word_len(sentence):
+    words = sentence.split()
+    return sum(len(word) for word in words) / len(words)
 
 
 def run():
@@ -91,13 +93,14 @@ def testing(text, output):
     """
     extractor = Extractor(text, output)
     extractor.parse()
+    extractor.extract()
 
 
 if __name__ == "__main__":
     # check correct length args
     # if no command line args, uses these parameters
     if len(sys.argv) == 1:
-        testing("late_encounter.txt", "encounter_output.csv")
+        testing("late_encounter.dat", "encounter_output.csv")
     elif len(sys.argv[1:]) == 2:
         print("Generating results")
         run()
