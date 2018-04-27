@@ -3,6 +3,7 @@ import sys
 import timeit
 import re
 import pandas as pd
+from nltk.tokenize import sent_tokenize
 
 start = timeit.default_timer()
 
@@ -29,9 +30,11 @@ class Extractor:
 
         with open(self.text, encoding="utf8") as f:
             content = f.readlines()
-        content = [x.strip() for x in content]
+        # content = [x.strip() for x in content]
 
-        sanitized_text = []
+        tokenized_sent = sent_tokenize(content[0])
+
+        sanitized_text = [x for x in tokenized_sent]
 
         for line in content:
             # control special characters here
@@ -121,7 +124,7 @@ if __name__ == "__main__":
     # check correct length args
     # if no command line args, uses these parameters
     if len(sys.argv) == 1:
-        testing("late_encounter.dat", "encounter_output.csv")
+        testing("raw.txt", "encounter_output.csv")
     elif len(sys.argv[1:]) == 2:
         print("Generating results")
         run()
