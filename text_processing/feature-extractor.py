@@ -34,18 +34,21 @@ class Extractor:
 
         tokenized_sent = sent_tokenize(content[0])
 
-        sanitized_text = [x for x in tokenized_sent]
+        sanitized_text = []
 
-        for line in content:
+
+        for line in tokenized_sent:
             # control special characters here
             cleaned = re.sub("[“”‘’]", "", line)
             sanitized_text.append(cleaned)
+
 
         self.sanitized_text = sanitized_text
 
     # todo: stub
     def extract(self):
 
+        # note that this removes last list (for some reason, we're getting the entire text appended to the end)
         for sentence in self.sanitized_text:
             temp = [get_sentence_length_char(sentence), get_sentence_length_word(sentence),
                     get_sentence_average_word_len(sentence)]
