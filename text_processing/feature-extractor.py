@@ -1,9 +1,11 @@
 import csv
+import re
 import sys
 import timeit
-import re
+
 import pandas as pd
 from nltk.tokenize import sent_tokenize
+
 
 start = timeit.default_timer()
 
@@ -51,7 +53,8 @@ class Extractor:
         # note that this removes last list (for some reason, we're getting the entire text appended to the end)
         for sentence in self.sanitized_text:
             temp = [get_sentence_length_char(sentence), get_sentence_length_word(sentence),
-                    get_sentence_average_word_len(sentence)]
+                    get_sentence_average_word_len(sentence), get_sentence_exlamation(sentence),
+                    get_sentence_question(sentence), get_sentence_commas(sentence)]
             self.output_array.append(temp)
 
         text = pd.DataFrame(self.output_array)
@@ -96,6 +99,17 @@ def get_sentence_length_word(sentence):
 def get_sentence_average_word_len(sentence):
     words = sentence.split()
     return sum(len(word) for word in words) / len(words)
+
+
+def get_sentence_commas(sentence):
+    return sentence.count(",")
+
+def get_sentence_exlamation(sentence):
+    return sentence.count("!")
+
+def get_sentence_question(sentence):
+    return sentence.count("?")
+
 
 
 def run():
