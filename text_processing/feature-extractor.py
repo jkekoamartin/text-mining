@@ -65,7 +65,8 @@ class Extractor:
     def write(self):
 
         with open(self.output, 'w', newline='') as csvfile:
-            fieldnames = ['sentence_length_char', 'sentence_length_word', 'average_word_length']
+            fieldnames = ['sentence_length_char', 'sentence_length_word', 'average_word_length', 'Ends in exclamation',
+                          'Ends in question', 'comma count']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             # excluding header for now
@@ -74,7 +75,10 @@ class Extractor:
             for line in self.output_array:
                 writer.writerow({'sentence_length_char': line[0],
                                  'sentence_length_word': line[1],
-                                 'average_word_length': line[2]})
+                                 'average_word_length': line[2],
+                                 'Ends in exclamation': line[3],
+                                 'Ends in question': line[4],
+                                 'comma count': line[5]})
 
         # out = self.output
         #
