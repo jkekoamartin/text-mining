@@ -266,7 +266,7 @@ if __name__ == "__main__":
         for x in range(2, 20):
             sse_s = []
             for y in range(5):
-                sse = testing("cali_output.csv", x, "outputs/caliOutput.dat")
+                sse = testing("encounter_output.csv", x, "outputs/encounterOutput.dat")
                 sse_s.append(sse)
             print(sum(sse_s) / float(len(sse_s)))
     elif len(sys.argv[1:]) == 3:
