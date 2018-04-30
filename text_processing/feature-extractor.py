@@ -145,7 +145,7 @@ if __name__ == "__main__":
     # check correct length args
     # if no command line args, uses these parameters
     if len(sys.argv) == 1:
-        testing("rawtext/californianstale.txt", "outputs/cali_output.csv")
+        testing("rawtext/lateencounter.txt", "outputs/encounter_output.csv")
     elif len(sys.argv[1:]) == 2:
         print("Generating results")
         run()
