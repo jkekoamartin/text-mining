@@ -200,6 +200,7 @@ class K_Means:
                 sse += squared_dist
 
         self.sse = sse
+        print(sse)
         return sse
 
 
@@ -258,7 +259,7 @@ def testing(dataset, test_set, out):
 if __name__ == "__main__":
     # check correct length args
     if len(sys.argv) == 1:
-        testing("encounter_output.csv","4","encounterOutput.dat")
+        testing("leastresistance_output.csv","4","leastOutput.dat")
     elif len(sys.argv) == 2:
         print("Run testing")
         print("SSE for k 2 through 10, descending:")
@@ -266,7 +267,7 @@ if __name__ == "__main__":
         for x in range(2, 20):
             sse_s = []
             for y in range(5):
-                sse = testing("encounter_output.csv", x, "outputs/encounterOutput.dat")
+                sse = testing("telltaleheart_output.csv", x, "outputs/telltaleOutput.dat")
                 sse_s.append(sse)
             print(sum(sse_s) / float(len(sse_s)))
     elif len(sys.argv[1:]) == 3:
