@@ -166,7 +166,7 @@ class K_Means:
         df = pd.DataFrame(cluster)
 
         for column in df:
-            mean = df[column].mean()
+            mean = df[column].median()
             new_centroid.append(mean)
 
         # if no data points, then average will be zero, so replace with random value
@@ -200,7 +200,6 @@ class K_Means:
                 sse += squared_dist
 
         self.sse = sse
-        print(sse)
         return sse
 
 
@@ -259,17 +258,26 @@ def testing(dataset, test_set, out):
 if __name__ == "__main__":
     # check correct length args
     if len(sys.argv) == 1:
-        testing("leastresistance_output.csv","4","leastOutput.dat")
+        sse = float('inf')
+        # min is the k found in kresults csv
+        # goal is to find the min cluster that was found in testing
+        min = 1084.277536
+        while (sse - min) > 1:
+            sse = testing("telltale_sent_output.csv","4","telltale_sent_clusters.dat")
+        print(sse)
     elif len(sys.argv) == 2:
         print("Run testing")
         print("SSE for k 2 through 10, descending:")
         # test set has three class labels. So using k = 3 to test.
-        for x in range(2, 20):
+        for x in range(2, 13):
             sse_s = []
-            for y in range(5):
-                sse = testing("telltaleheart_output.csv", x, "outputs/telltaleOutput.dat")
+            # control how many times kmeans runs for each k
+            for y in range(70):
+                sse = testing("telltale_sent_output.csv", x, "outputs/enc_sent_output.dat")
                 sse_s.append(sse)
-            print(sum(sse_s) / float(len(sse_s)))
+            # print(sum(sse_s) / float(len(sse_s)))
+            # select best run for a given k
+            print(min(sse_s))
     elif len(sys.argv[1:]) == 3:
         print("Generating results")
         run()
