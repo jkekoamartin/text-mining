@@ -261,19 +261,20 @@ if __name__ == "__main__":
         sse = float('inf')
         # min is the k found in kresults csv
         # goal is to find the min cluster that was found in testing
-        min = 1084.277536
+        min = 9883.896305
+
         while (sse - min) > 1:
-            sse = testing("telltale_sent_output.csv","4","telltale_sent_clusters.dat")
-        print(sse)
+            sse = testing("rip_sent_output.csv","4","rip_sent_clusters.dat")
+            print(sse)
     elif len(sys.argv) == 2:
         print("Run testing")
-        print("SSE for k 2 through 10, descending:")
+        print("SSE for k 2 through 12, descending:")
         # test set has three class labels. So using k = 3 to test.
         for x in range(2, 13):
             sse_s = []
             # control how many times kmeans runs for each k
             for y in range(70):
-                sse = testing("telltale_sent_output.csv", x, "outputs/enc_sent_output.dat")
+                sse = testing("pelican_sent_output.csv", 5, "outputs/enc_sent_output.dat")
                 sse_s.append(sse)
             # print(sum(sse_s) / float(len(sse_s)))
             # select best run for a given k
