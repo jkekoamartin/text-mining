@@ -37,6 +37,7 @@ class Extractor:
         sanitized_text = []
 
         for line in tokenized_sent:
+            print(line)
             # control special characters here
             cleaned = re.sub("[“”‘’]", "", line)
             sanitized_text.append(cleaned)
